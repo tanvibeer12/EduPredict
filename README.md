@@ -3,7 +3,7 @@
 EduPredict is a full-stack student performance prediction system built using Python, Machine Learning, HTML, CSS, and JavaScript, designed with a modern, responsive interface for both mobile and desktop users.
 
 ## Screenshots
-<img width="1891" height="876" alt="image" src="https://github.com/user-attachments/assets/402312bd-1d35-472a-bac8-c99ff78d90d0" />
+<img width="1892" height="872" alt="Screenshot 2026-02-13 202340" src="https://github.com/user-attachments/assets/a4e00ea5-ef11-4d63-ba72-e81ce177e35e" />
 <img width="1888" height="857" alt="Screenshot 2026-02-13 231855" src="https://github.com/user-attachments/assets/54843868-bf1a-4e90-a16a-d78b82b747ab" />
 <img width="1891" height="876" alt="Screenshot 2026-02-13 231933" src="https://github.com/user-attachments/assets/17622b0a-e454-4451-a3d6-e164e7842b15" />
 
