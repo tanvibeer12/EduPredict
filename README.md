@@ -1,6 +1,6 @@
-# Student Performance Prediction System
+# Student Performance Prediction System-EduPredict
 
-A full-stack machine learning application for predicting student academic performance using HTML, CSS, JavaScript, Python, Flask, and scikit-learn.
+EduPredict is a full-stack student performance prediction system built using Python, Machine Learning, HTML, CSS, and JavaScript, designed with a modern, responsive interface for both mobile and desktop users.
 
 ## 🎯 Features
 
