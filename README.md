@@ -4,7 +4,8 @@ EduPredict is a full-stack student performance prediction system built using Pyt
 
 ## Screenshots
 <img width="611" height="205" alt="Screenshot 2026-02-13 202314" src="https://github.com/user-attachments/assets/22f944f5-f4f8-40cb-88c6-ee833754c49d" />
-<img width="1892" height="872" alt="Screenshot 2026-02-13 202340" src="https://github.com/user-attachments/assets/d17b6159-6577-4795-8723-57ba76794590" />
+<img width="1888" height="857" alt="Screenshot 2026-02-13 231855" src="https://github.com/user-attachments/assets/54843868-bf1a-4e90-a16a-d78b82b747ab" />
+<img width="1891" height="876" alt="Screenshot 2026-02-13 231933" src="https://github.com/user-attachments/assets/17622b0a-e454-4451-a3d6-e164e7842b15" />
 
 ## 🎯 Features
 
