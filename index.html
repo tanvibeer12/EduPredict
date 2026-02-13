@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Prediction System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <div>
+                        <h1>Student Performance Prediction</h1>
+                        <p>Machine Learning-Powered Academic Analytics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="container">
+            <button class="tab-btn active" data-tab="predict">
+                <i class="fas fa-brain"></i> Predict
+            </button>
+            <button class="tab-btn" data-tab="statistics">
+                <i class="fas fa-chart-bar"></i> Statistics
+            </button>
+            <button class="tab-btn" data-tab="about">
+                <i class="fas fa-info-circle"></i> About
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container main-content">
+        
+        <!-- Predict Tab -->
+        <div id="predict-tab" class="tab-content active">
+            <div class="grid-2">
+                <!-- Input Form -->
+                <div class="card">
+                    <h2>Student Information</h2>
+                    <form id="prediction-form">
+                        
+                        <!-- Study Hours -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-clock icon-blue"></i>
+                                Hours Studied per Day
+                            </label>
+                            <input type="range" id="studyHours" min="0" max="12" step="0.5" value="5" class="slider">
+                            <div class="slider-values">
+                                <span>0h</span>
+                                <span class="value" id="studyHoursValue">5h</span>
+                                <span>12h</span>
+                            </div>
+                        </div>
+
+                        <!-- Attendance Rate -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-users icon-green"></i>
+                                Attendance Rate (%)
+                            </label>
+                            <input type="range" id="attendance" min="0" max="100" value="85" class="slider">
+                            <div class="slider-values">
+                                <span>0%</span>
+                                <span class="value" id="attendanceValue">85%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+
+                        <!-- Previous Grade -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-award icon-purple"></i>
+                                Previous Grade (%)
+                            </label>
+                            <input type="range" id="previousGrade" min="0" max="100" value="75" class="slider">
+                            <div class="slider-values">
+                                <span>0%</span>
+                                <span class="value" id="previousGradeValue">75%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+
+                        <!-- Assignments Completed -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-book-open icon-orange"></i>
+                                Assignments Completed (%)
+                            </label>
+                            <input type="range" id="assignments" min="0" max="100" value="80" class="slider">
+                            <div class="slider-values">
+                                <span>0%</span>
+                                <span class="value" id="assignmentsValue">80%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+
+                        <!-- Extracurricular Activities -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-running icon-pink"></i>
+                                Extracurricular Activities (hrs/week)
+                            </label>
+                            <input type="range" id="extracurriculars" min="0" max="20" value="5" class="slider">
+                            <div class="slider-values">
+                                <span>0h</span>
+                                <span class="value" id="extracurricularsValue">5h</span>
+                                <span>20h</span>
+                            </div>
+                        </div>
+
+                        <!-- Sleep Hours -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-moon icon-indigo"></i>
+                                Sleep Hours per Night
+                            </label>
+                            <input type="range" id="sleep" min="3" max="12" step="0.5" value="7" class="slider">
+                            <div class="slider-values">
+                                <span>3h</span>
+                                <span class="value" id="sleepValue">7h</span>
+                                <span>12h</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-chart-line"></i> Predict Performance
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Results -->
+                <div class="card">
+                    <h2>Prediction Results</h2>
+                    
+                    <!-- Loading State -->
+                    <div id="loading" class="loading hidden">
+                        <div class="spinner"></div>
+                        <p>Analyzing data with ML model...</p>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="empty-state" class="empty-state">
+                        <i class="fas fa-brain"></i>
+                        <p>Adjust the parameters and click "Predict Performance" to see results</p>
+                    </div>
+
+                    <!-- Results Display -->
+                    <div id="results" class="results hidden">
+                        <!-- Prediction Card -->
+                        <div id="prediction-card" class="prediction-card">
+                            <div class="prediction-main">
+                                <div class="radial-chart">
+                                    <svg viewBox="0 0 200 200">
+                                        <circle cx="100" cy="100" r="80" class="radial-bg"></circle>
+                                        <circle cx="100" cy="100" r="80" class="radial-progress" id="radialProgress"></circle>
+                                        <text x="100" y="100" class="radial-text" id="gradeText">0%</text>
+                                    </svg>
+                                </div>
+                                <div class="prediction-info">
+                                    <div class="category" id="categoryInfo">
+                                        <i class="fas fa-check-circle"></i>
+                                        <h3>Excellent</h3>
+                                    </div>
+                                    <p id="predictionDescription"></p>
+                                    <div class="confidence">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Confidence Level: <strong id="confidenceValue">0%</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Factor Impact -->
+                        <div class="factors-card">
+                            <h4>Key Performance Factors</h4>
+                            <div id="factors-list"></div>
+                        </div>
+
+                        <!-- Recommendations -->
+                        <div class="recommendations-card">
+                            <h4>
+                                <i class="fas fa-lightbulb"></i>
+                                Personalized Recommendations
+                            </h4>
+                            <ul id="recommendations-list"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Tab -->
+        <div id="statistics-tab" class="tab-content">
+            <div class="card">
+                <h2>Model Performance Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card blue">
+                        <div class="stat-value" id="modelAccuracy">94.2%</div>
+                        <div class="stat-label">Model Accuracy</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-value" id="studentsAnalyzed">0</div>
+                        <div class="stat-label">Students Analyzed</div>
+                    </div>
+                    <div class="stat-card purple">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Key Factors</div>
+                    </div>
+                    <div class="stat-card orange">
+                        <div class="stat-value" id="avgError">±3.2%</div>
+                        <div class="stat-label">Average Error</div>
+                    </div>
+                </div>
+                <div id="chart-container" class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Tab -->
+        <div id="about-tab" class="tab-content">
+            <div class="card">
+                <h2>About the System</h2>
+                <p>The Student Performance Prediction System uses advanced machine learning algorithms to predict academic performance based on multiple study-related factors.</p>
+                
+                <h3>Key Parameters Analyzed</h3>
+                <ul class="info-list">
+                    <li><strong>Study Hours:</strong> Daily time dedicated to studying (25% weight)</li>
+                    <li><strong>Attendance Rate:</strong> Class attendance percentage (20% weight)</li>
+                    <li><strong>Previous Grade:</strong> Historical academic performance (30% weight)</li>
+                    <li><strong>Assignment Completion:</strong> Homework completion rate (15% weight)</li>
+                    <li><strong>Sleep Quality:</strong> Hours of sleep per night (7% weight)</li>
+                    <li><strong>Extracurricular Activities:</strong> Weekly hours in activities (3% weight)</li>
+                </ul>
+
+                <h3>How It Works</h3>
+                <p>The prediction model uses a trained Random Forest Classifier that has been optimized with historical student data. Each input is normalized and processed through the model to generate accurate predictions.</p>
+
+                <h3>Technology Stack</h3>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h4>Frontend</h4>
+                        <ul>
+                            <li>HTML5</li>
+                            <li>CSS3</li>
+                            <li>JavaScript (ES6+)</li>
+                            <li>Chart.js</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h4>Backend</h4>
+                        <ul>
+                            <li>Python 3.8+</li>
+                            <li>Flask</li>
+                            <li>scikit-learn</li>
+                            <li>pandas & numpy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Student Performance Prediction System • Powered by Machine Learning</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
